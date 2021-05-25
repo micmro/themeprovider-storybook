@@ -1,5 +1,6 @@
-// import { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components";
 import { withThemesProvider } from "themeprovider-storybook"
+
 const THEMES = [
   {
     name: 'Light',
@@ -41,6 +42,12 @@ const THEMES = [
   },
 ]
 
+const MANY_THEMES = THEMES.concat(new Array(15).fill(null).map((_, i) => ({
+  ...THEMES[0],
+  name: `Theme ${i + 1}`,
+  backgroundColor: `#${i.toString(16).repeat(6)}`,
+})))
+
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
 }
@@ -50,7 +57,7 @@ export const parameters = {
 
 // with preview
 export const decorators = [
-  withThemesProvider(THEMES, {
+  withThemesProvider(MANY_THEMES, {
     CustomThemeProvider: ThemeProvider
   })
 ];
